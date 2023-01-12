@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {
-  AsyncStorage,
   Keyboard,
   KeyboardAvoidingView,
   Platform,
@@ -13,16 +12,15 @@ import QuestionNumber from './components/QuestionNumber';
 import List from './components/List';
 import Question from './components/Question';
 import Save from './components/Save';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const QuestionContainer = () => {
   const [mode, setMode] = useState('write');
-  const [date, setDate] = useState('');
-  const [number, setNumber] = useState('');
-  const [question, setQuestion] = useState('');
+  const [date, setDate] = useState('01.01');
+  const [question, setQuestion] = useState('오늘의 기분은 어떤가요?');
   const [answer, setAnswer] = useState('');
 
   useEffect(() => {
-    console.log('a', answer, typeof answer);
     if (mode === 'save' && answer && answer.length > 0) {
       const item = {
         date,
@@ -36,7 +34,6 @@ const QuestionContainer = () => {
         data.items.push(item);
         data.currentNumber += 1;
         AsyncStorage.setItem('user_information', JSON.stringify(data), () => {
-          console.log('저장');
           data.currentNumber += 1;
         });
       });

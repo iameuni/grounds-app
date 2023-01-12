@@ -14,7 +14,7 @@ const Question = ({mode, answer, setAnswer}: Props) => {
       console.log(result);
       setAnswer(result);
     });
-  }, []);
+  }, [setAnswer]);
 
   return (
     <View style={styles.container}>

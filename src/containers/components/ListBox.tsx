@@ -1,30 +1,29 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
-import {AsyncStorage, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
-const test = async () => {
-  const result = await AsyncStorage.getItem('user_information');
-  const data = JSON.parse(result) || {currentNumber: 0, items: []};
-  console.log(data.items, 'jjangna');
-  return data.items;
-};
-
 const ListBox = () => {
   const navagation = useNavigation();
-  const [items, setItems] = useState(test() || []);
+  const [items, setItems] = useState([]);
+  useEffect(() => {
+    AsyncStorage.getItem('user_information', (_err, result) => {
+      setItems((JSON.parse(result) || {items: []}).items);
+    });
+  }, []);
 
   return (
     <>
-      {Object.keys(items).map(item => {
+      {Object.keys(items).map(key => {
         return (
           <TouchableOpacity
             style={styles.container}
             onPress={() => navagation.navigate('PastQuestionConatiner')}>
-            <Text style={styles.dateText}>01.11</Text>
+            <Text style={styles.dateText}>{items[key].date}</Text>
             <Text style={styles.questionText} numberOfLines={1} ellipsizeMode="tail">
-              {item.question}
+              {items[key].question}
             </Text>
           </TouchableOpacity>
         );

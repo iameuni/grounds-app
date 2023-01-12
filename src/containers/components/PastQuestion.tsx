@@ -1,32 +1,19 @@
-import React, {useEffect, useState} from 'react';
-import {StyleSheet, TextInput, Text, View} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import React from 'react';
+import {StyleSheet, TextInput, Text, View} from 'react-native';
 
 interface Props {
   mode: string;
 }
 
-const Question = ({mode}: Props) => {
-  const [answer, setAnswer] = useState('');
-
-  useEffect(() => {
-    AsyncStorage.getItem('answer', (_err, result) => {
-      setAnswer(result);
-    });
-  }, []);
-
+const PastQuestion = ({mode}: Props) => {
   return (
     <View style={styles.container}>
       <View style={styles.textContainer}>
         <Text style={styles.numText}>오늘의 기분은?</Text>
       </View>
       <View style={styles.containerLine}>
-        <TextInput
-          style={styles.disabledInput}
-          multiline={true}
-          editable={mode === 'write'}
-          value={answer}
-        />
+        <TextInput style={styles.disabledInput} multiline={true} editable={mode === 'write'} />
       </View>
     </View>
   );
@@ -78,4 +65,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Question;
+export default PastQuestion;
