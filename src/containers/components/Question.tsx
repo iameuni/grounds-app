@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {StyleSheet, TextInput, Text, View} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -6,20 +6,14 @@ interface Props {
   mode: string;
   answer: string;
   setAnswer: (arg0: string) => void;
+  question: string;
 }
 
-const Question = ({mode, answer, setAnswer}: Props) => {
-  useEffect(() => {
-    AsyncStorage.getItem('answer', (_err, result) => {
-      console.log(result);
-      setAnswer(result);
-    });
-  }, [setAnswer]);
-
+const Question = ({mode, answer, setAnswer, question}: Props) => {
   return (
     <View style={styles.container}>
       <View style={styles.textContainer}>
-        <Text style={styles.numText}>오늘의 기분은?</Text>
+        <Text style={styles.numText}>{question}</Text>
       </View>
       <View style={styles.containerLine}>
         <TextInput

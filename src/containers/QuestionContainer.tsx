@@ -17,8 +17,19 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const QuestionContainer = () => {
   const [mode, setMode] = useState('write');
   const [date, setDate] = useState('01.01');
-  const [question, setQuestion] = useState('오늘의 기분은 어떤가요?');
+  const [question, setQuestion] = useState('');
   const [answer, setAnswer] = useState('');
+
+  const getQuestion = async () => {
+    const response = await fetch(`http://127.0.0.1:8000/api/items/questions`);
+    const json = await response.json();
+    console.log(json);
+    setQuestion(json.content);
+  };
+
+  useEffect(() => {
+    getQuestion();
+  }, []);
 
   useEffect(() => {
     if (mode === 'save' && answer && answer.length > 0) {
@@ -52,7 +63,7 @@ const QuestionContainer = () => {
       <KeyboardAvoidingView
         behavior={Platform.select({ios: 'padding', android: undefined})}
         style={styles.avoid}>
-        <Question mode={mode} answer={answer} setAnswer={setAnswer} />
+        <Question mode={mode} answer={answer} setAnswer={setAnswer} question={question} />
         <Save mode={mode} setMode={setMode} />
       </KeyboardAvoidingView>
     </SafeAreaView>
