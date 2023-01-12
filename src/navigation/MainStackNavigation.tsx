@@ -1,9 +1,9 @@
 import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import QuestionContainer from '../containers/Question/QuestionContainer';
-import ListContainer from '../containers/List/ListContainer';
-import PastQuestionContainer from '../containers/Question/PastQuestionContainer';
+import QuestionContainer from '../containers/QuestionContainer';
+import ListContainer from '../containers/ListContainer';
+import PastQuestionContainer from '../containers/PastQuestionContainer';
 
 type RootStackParams = {
   QuestionContainer: undefined;
