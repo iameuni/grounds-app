@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/Foundation';
 const List = () => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.touchContainer} onPress={() => {}}>
+      <TouchableOpacity style={styles.touchContainer}>
         <Text>
           <Icon name="bookmark" style={styles.penIcon} />
         </Text>

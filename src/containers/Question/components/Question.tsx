@@ -1,27 +1,39 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, TextInput, Text, View} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface Props {
   mode: string;
 }
 
 const Question = ({mode}: Props) => {
+  const [data, setData] = useState('');
+
   useEffect(() => {
-    console.log(mode);
-  }, [mode]);
-  const [answer, setAnser] = useState('');
+    AsyncStorage.getItem('data', (_err, result) => {
+      console.log(result);
+      setData(result);
+    });
+  }, []);
+
   return (
     <View style={styles.container}>
       <View style={styles.textContainer}>
-        <Text style={styles.numText}>이제 무엇을 코딩해야 할까요?</Text>
+        <Text style={styles.numText}>오늘의 기분은?</Text>
       </View>
       <View style={styles.containerLine}>
         <TextInput
           style={mode === 'write' ? styles.input : styles.disabledInput}
           multiline={true}
-          value={answer}
-          onChangeText={text => setAnser(text)}
           editable={mode === 'write'}
+          onEndEditing={() => {
+            AsyncStorage.setItem('data', data, () => {});
+            AsyncStorage.getItem('data', (_err, result) => {
+              console.log(result);
+            });
+          }}
+          onChangeText={text => setData(text)}
+          value={data}
         />
       </View>
     </View>
@@ -70,7 +82,7 @@ const styles = StyleSheet.create({
     lineHeight: 30,
     height: '90%',
     width: '100%',
-    fontStyle: 'italic',
+    color: '#191970',
   },
 });
 
