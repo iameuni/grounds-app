@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     lineHeight: 30,
     height: '90%',
     width: '100%',
-    color: '#191970',
+    fontStyle: 'italic',
   },
 });
 
