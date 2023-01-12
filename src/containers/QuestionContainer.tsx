@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
+  AsyncStorage,
   Keyboard,
   KeyboardAvoidingView,
   Platform,
@@ -15,6 +16,30 @@ import Save from './components/Save';
 
 const QuestionContainer = () => {
   const [mode, setMode] = useState('write');
+  const [date, setDate] = useState('');
+  const [number, setNumber] = useState('');
+  const [question, setQuestion] = useState('');
+  const [answer, setAnswer] = useState('');
+
+  useEffect(() => {
+    const data = {
+      currentNumber: 0,
+      items: [{date: date, number: number, question: question, answer: answer}],
+    };
+    AsyncStorage.setItem('user_information', JSON.stringify(data), () => {
+      console.log('저장');
+      data.currentNumber += 1;
+    });
+    AsyncStorage.getItem('user_information', (_err, result) => {
+      const dataItem = JSON.parse(result);
+      for (var i = 0; i < data.currentNumber; i++) {
+        console.log('날짜는' + dataItem.date);
+        console.log('숫자는' + dataItem.number);
+        console.log('질문은' + dataItem.question);
+        console.log('대답은' + dataItem.answer);
+      }
+    });
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -28,7 +53,7 @@ const QuestionContainer = () => {
       <KeyboardAvoidingView
         behavior={Platform.select({ios: 'padding', android: undefined})}
         style={styles.avoid}>
-        <Question mode={mode} />
+        <Question mode={mode} answer={answer} setAnswer={setAnswer} />
         <Save mode={mode} setMode={setMode} />
       </KeyboardAvoidingView>
     </SafeAreaView>

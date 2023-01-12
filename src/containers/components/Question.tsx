@@ -1,18 +1,18 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {StyleSheet, TextInput, Text, View} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface Props {
   mode: string;
+  answer: string;
+  setAnswer: (arg0: string) => void;
 }
 
-const Question = ({mode}: Props) => {
-  const [data, setData] = useState('');
-
+const Question = ({mode, answer, setAnswer}: Props) => {
   useEffect(() => {
-    AsyncStorage.getItem('data', (_err, result) => {
+    AsyncStorage.getItem('answer', (_err, result) => {
       console.log(result);
-      setData(result);
+      setAnswer(result);
     });
   }, []);
 
@@ -27,13 +27,13 @@ const Question = ({mode}: Props) => {
           multiline={true}
           editable={mode === 'write'}
           onEndEditing={() => {
-            AsyncStorage.setItem('data', data, () => {});
+            AsyncStorage.setItem('data', answer, () => {});
             AsyncStorage.getItem('data', (_err, result) => {
               console.log(result);
             });
           }}
-          onChangeText={text => setData(text)}
-          value={data}
+          onChangeText={text => setAnswer(text)}
+          value={answer}
         />
       </View>
     </View>

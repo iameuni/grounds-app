@@ -7,12 +7,11 @@ interface Props {
 }
 
 const Question = ({mode}: Props) => {
-  const [data, setData] = useState('');
+  const [answer, setAnswer] = useState('');
 
   useEffect(() => {
-    AsyncStorage.getItem('data', (_err, result) => {
-      console.log(result);
-      setData(result);
+    AsyncStorage.getItem('answer', (_err, result) => {
+      setAnswer(result);
     });
   }, []);
 
@@ -26,7 +25,7 @@ const Question = ({mode}: Props) => {
           style={styles.disabledInput}
           multiline={true}
           editable={mode === 'write'}
-          value={data}
+          value={answer}
         />
       </View>
     </View>
