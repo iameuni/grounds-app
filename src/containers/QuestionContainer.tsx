@@ -22,24 +22,26 @@ const QuestionContainer = () => {
   const [answer, setAnswer] = useState('');
 
   useEffect(() => {
-    const data = {
-      currentNumber: 0,
-      items: [{date: date, number: number, question: question, answer: answer}],
-    };
-    AsyncStorage.setItem('user_information', JSON.stringify(data), () => {
-      console.log('저장');
-      data.currentNumber += 1;
-    });
-    AsyncStorage.getItem('user_information', (_err, result) => {
-      const dataItem = JSON.parse(result);
-      for (var i = 0; i < data.currentNumber; i++) {
-        console.log('날짜는' + dataItem.date);
-        console.log('숫자는' + dataItem.number);
-        console.log('질문은' + dataItem.question);
-        console.log('대답은' + dataItem.answer);
-      }
-    });
-  }, []);
+    console.log('a', answer, typeof answer);
+    if (mode === 'save' && answer && answer.length > 0) {
+      const item = {
+        date,
+        question,
+        answer,
+      };
+      console.log('dddd', item);
+      AsyncStorage.getItem('user_information', (_err, result) => {
+        let data = JSON.parse(result) || {currentNumber: 0, items: []};
+        console.log(data, 'data', data.items);
+        data.items.push(item);
+        data.currentNumber += 1;
+        AsyncStorage.setItem('user_information', JSON.stringify(data), () => {
+          console.log('저장');
+          data.currentNumber += 1;
+        });
+      });
+    }
+  }, [mode]);
 
   return (
     <SafeAreaView style={styles.container}>

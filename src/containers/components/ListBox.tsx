@@ -1,32 +1,34 @@
 import {useNavigation} from '@react-navigation/native';
-import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {AsyncStorage, StyleSheet, Text, View} from 'react-native';
+
 import {TouchableOpacity} from 'react-native-gesture-handler';
+
+const test = async () => {
+  const result = await AsyncStorage.getItem('user_information');
+  const data = JSON.parse(result) || {currentNumber: 0, items: []};
+  console.log(data.items, 'jjangna');
+  return data.items;
+};
 
 const ListBox = () => {
   const navagation = useNavigation();
+  const [items, setItems] = useState(test() || []);
+
   return (
     <>
-      <TouchableOpacity
-        style={styles.container}
-        onPress={() => navagation.navigate('PastQuestionConatiner')}>
-        <Text style={styles.dateText}>01.11</Text>
-        <Text style={styles.questionText} numberOfLines={1} ellipsizeMode="tail">
-          오늘의 기분은?
-        </Text>
-      </TouchableOpacity>
-      <View style={styles.container}>
-        <Text style={styles.dateText}>01.12</Text>
-        <Text style={styles.questionText} numberOfLines={1} ellipsizeMode="tail">
-          만약에 내가 박아윤으로 하루를 살 수 있다면?
-        </Text>
-      </View>
-      <View style={styles.container}>
-        <Text style={styles.dateText}>01.13</Text>
-        <Text style={styles.questionText} numberOfLines={1} ellipsizeMode="tail">
-          디자인을 어케 할까요?
-        </Text>
-      </View>
+      {Object.keys(items).map(item => {
+        return (
+          <TouchableOpacity
+            style={styles.container}
+            onPress={() => navagation.navigate('PastQuestionConatiner')}>
+            <Text style={styles.dateText}>01.11</Text>
+            <Text style={styles.questionText} numberOfLines={1} ellipsizeMode="tail">
+              {item.question}
+            </Text>
+          </TouchableOpacity>
+        );
+      })}
     </>
   );
 };
