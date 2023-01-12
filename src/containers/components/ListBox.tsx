@@ -1,15 +1,20 @@
+import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const ListBox = () => {
+  const navagation = useNavigation();
   return (
     <>
-      <View style={styles.container}>
+      <TouchableOpacity
+        style={styles.container}
+        onPress={() => navagation.navigate('PastQuestionConatiner')}>
         <Text style={styles.dateText}>01.11</Text>
         <Text style={styles.questionText} numberOfLines={1} ellipsizeMode="tail">
           오늘의 기분은?
         </Text>
-      </View>
+      </TouchableOpacity>
       <View style={styles.container}>
         <Text style={styles.dateText}>01.12</Text>
         <Text style={styles.questionText} numberOfLines={1} ellipsizeMode="tail">

@@ -4,12 +4,12 @@ import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Foundation';
 
 const List = () => {
-  const navagation = useNavigation();
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <TouchableOpacity
         style={styles.touchContainer}
-        onPress={() => navagation.navigate('ListContainer')}>
+        onPress={() => navigation.navigate('ListContainer')}>
         <Text>
           <Icon name="bookmark" style={styles.penIcon} />
         </Text>

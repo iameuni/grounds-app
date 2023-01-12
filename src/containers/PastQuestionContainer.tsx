@@ -17,6 +17,7 @@ const PastQuestionContainer = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#EBE2D0',
   },
   questionNumberContainer: {
     width: '100%',

@@ -20,6 +20,7 @@ const QuestionContainer = () => {
     <SafeAreaView style={styles.container}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.questionNumberContainer}>
+          <View style={styles.marginTop} />
           <QuestionNumber />
           <List />
         </View>
@@ -37,6 +38,12 @@ const QuestionContainer = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#EBE2D0',
+  },
+  marginTop: {
+    width: '100%',
+    height: 30,
+    backgroundColor: '#EBE2D0',
   },
   questionNumberContainer: {
     width: '100%',

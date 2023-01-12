@@ -13,6 +13,7 @@ const ListContainer = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#EBE2D0',
   },
 });
 

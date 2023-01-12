@@ -11,7 +11,6 @@ const QuestionNumber = () => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 30,
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',

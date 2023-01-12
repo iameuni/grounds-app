@@ -8,7 +8,7 @@ import PastQuestionContainer from '../containers/PastQuestionContainer';
 type RootStackParams = {
   QuestionContainer: undefined;
   ListContainer: undefined;
-  PastedQuestionContainer: undefined;
+  PastQuestionConatiner: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParams>();
@@ -16,10 +16,36 @@ const Stack = createNativeStackNavigator<RootStackParams>();
 const MainStackNavigation = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="QuestionContainer" screenOptions={{headerShown: false}}>
-        <Stack.Screen name="QuestionContainer" component={QuestionContainer} />
-        <Stack.Screen name="ListContainer" component={ListContainer} />
-        <Stack.Screen name="PastedQuestionContainer" component={PastQuestionContainer} />
+      <Stack.Navigator initialRouteName="QuestionContainer" screenOptions={{headerShown: true}}>
+        <Stack.Screen
+          name="QuestionContainer"
+          component={QuestionContainer}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="ListContainer"
+          component={ListContainer}
+          options={{
+            title: '기록',
+            headerStyle: {
+              backgroundColor: '#EBE2D0',
+            },
+            headerTintColor: '#191970',
+            headerBackTitle: '',
+          }}
+        />
+        <Stack.Screen
+          name="PastQuestionConatiner"
+          component={PastQuestionContainer}
+          options={{
+            title: '기록',
+            headerStyle: {
+              backgroundColor: '#EBE2D0',
+            },
+            headerTintColor: '#191970',
+            headerBackTitle: '',
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
